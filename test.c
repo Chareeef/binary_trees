@@ -7,29 +7,23 @@
  */
 int main(void)
 {
-
     binary_tree_t *root;
+    size_t height;
 
     root = binary_tree_node(NULL, 98);
     root->left = binary_tree_node(root, 12);
     root->right = binary_tree_node(root, 402);
-    root->left->left = binary_tree_node(root->left, 6);
-    root->left->right = binary_tree_node(root->left, 56);
-    root->right->left = binary_tree_node(root->right, 256);
-    root->right->right = binary_tree_node(root->right, 512);
-
+    binary_tree_insert_right(root->left, 54);
+    binary_tree_insert_right(root->left->right, 549);
+    binary_tree_insert_left(root->left->right->right, 49);
+    binary_tree_insert_right(root, 128);
     binary_tree_print(root);
-    printf("\nPre-order traversal :\n");
-    binary_tree_preorder(root, &print_num);
-    printf("\n\t***\n");
 
-    printf("\nIn-order traversal :\n");
-    binary_tree_inorder(root, &print_num);
-    printf("\n\t***\n");
-
-    printf("\nPost-order traversal :\n");
-    binary_tree_postorder(root, &print_num);
-    printf("\n\t***\n");
-
+    height = binary_tree_height(root);
+    printf("Height from %d: %u\n", root->n, height);
+    height = binary_tree_height(root->right);
+    printf("Height from %d: %u\n", root->right->n, height);
+    height = binary_tree_height(root->left->right);
+    printf("Height from %d: %u\n", root->left->right->n, height);
     return (0);
 }
