@@ -22,7 +22,6 @@ size_t recursive_height(const binary_tree_t *node, size_t cumulative_h)
 	return (cumulative_h);
 }
 
-
 /**
  * binary_tree_height - Measures the height of a binary tree
  * @tree: Pointer to the root node of the tree to measure the height
