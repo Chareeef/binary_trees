@@ -19,7 +19,17 @@ int main(void)
     root->right->right = binary_tree_node(root->right, 512);
 
     binary_tree_print(root);
+    printf("\nPre-order traversal :\n");
     binary_tree_preorder(root, &print_num);
+    printf("\n\t***\n");
+
+    printf("\nIn-order traversal :\n");
+    binary_tree_inorder(root, &print_num);
+    printf("\n\t***\n");
+
+    printf("\nPost-order traversal :\n");
+    binary_tree_postorder(root, &print_num);
+    printf("\n\t***\n");
 
     return (0);
 }
