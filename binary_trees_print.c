@@ -97,3 +97,13 @@ void binary_tree_print(const binary_tree_t *tree)
 	}
 	free(s);
 }
+
+/**
+ * print_num - Prints a number
+ *
+ * @n: Number to be printed
+ */
+void print_num(int n)
+{
+	printf("%d\n", n);
+}
