@@ -49,6 +49,7 @@ int		binary_tree_is_root(const binary_tree_t *node);
 void		binary_tree_preorder(const binary_tree_t *tree, void (*func)(int));
 void		binary_tree_inorder(const binary_tree_t *tree, void (*func)(int));
 void		binary_tree_postorder(const binary_tree_t *tree, void (*func)(int));
+void		binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
 size_t		binary_tree_height(const binary_tree_t *tree);
 size_t		binary_tree_depth(const binary_tree_t *tree);
 size_t		binary_tree_size(const binary_tree_t *tree);
@@ -58,5 +59,29 @@ size_t		binary_tree_leaves(const binary_tree_t *tree);
 
 void		binary_tree_print(const binary_tree_t *);
 void		print_num(int n);
+
+/* Queue for binary trees problems */
+
+/**
+ * struct qnode - A queue's node
+ * @bt_node: binary tree node
+ * @next: Pointer to the next node
+ */
+typedef struct qnode
+{
+	binary_tree_t *bt_node;
+	struct qnode *next;
+} qnode;
+
+/**
+ * struct queue - A queue used for binary trees problems
+ * @front: The queue's front
+ * @rear: The queue's rear
+ */
+typedef struct queue
+{
+	qnode *front;
+	qnode *rear;
+} queue;
 
 #endif
