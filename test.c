@@ -1,29 +1,39 @@
 #include "binary_trees.h"
 
 /**
- * launch_test - Test ancestor function and print informations
+ * main - Entry point
  *
- * @n1: First node
- * @n2: Second node
+ * Return: 0 on success, error code on failure
  */
 int main(void)
 {
-	binary_tree_t *root;
+    avl_t *root;
+    avl_t *node;
 
-	root = binary_tree_node(NULL, 98);
-	root->left = binary_tree_node(root, 64);
-	root->left->left = binary_tree_node(root->left, 32);
-	binary_tree_print(root);
-	printf("Rotate-right %d\n", root->n);
-	root = binary_tree_rotate_right(root);
-	binary_tree_print(root);
-	printf("\n");
-
-	root->left->left = binary_tree_node(root->left, 20);
-	root->left->right = binary_tree_node(root->left, 56);
-	binary_tree_print(root);
-	printf("Rotate-right %d\n", root->n);
-	root = binary_tree_rotate_right(root);
-	binary_tree_print(root);
-	return (0);
+    root = NULL;
+    node = avl_insert(&root, 98);
+    printf("Inserted: %d\n", node->n);
+    binary_tree_print(root);
+    node = avl_insert(&root, 402);
+    printf("\nInserted: %d\n", node->n);
+    binary_tree_print(root);
+    node = avl_insert(&root, 12);
+    printf("\nInserted: %d\n", node->n);
+    binary_tree_print(root);
+    node = avl_insert(&root, 46);
+    printf("\nInserted: %d\n", node->n);
+    binary_tree_print(root);
+    node = avl_insert(&root, 128);
+    printf("\nInserted: %d\n", node->n);
+    binary_tree_print(root);
+    node = avl_insert(&root, 256);
+    printf("\nInserted: %d\n", node->n);
+    binary_tree_print(root);
+    node = avl_insert(&root, 512);
+    printf("\nInserted: %d\n", node->n);
+    binary_tree_print(root);
+    node = avl_insert(&root, 50);
+    printf("\nInserted: %d\n", node->n);
+    binary_tree_print(root);
+    return (0);
 }
