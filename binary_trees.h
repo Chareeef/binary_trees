@@ -60,6 +60,8 @@ int		binary_tree_is_bst(const binary_tree_t *tree);
 int		binary_tree_is_complete(const binary_tree_t *tree);
 int binary_tree_is_full(const binary_tree_t *tree);
 int binary_tree_is_perfect(const binary_tree_t *tree);
+binary_tree_t *binary_tree_sibling(binary_tree_t *node);
+binary_tree_t *binary_tree_uncle(binary_tree_t *node);
 
 /* Helper functions */
 
