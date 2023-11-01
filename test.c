@@ -11,7 +11,8 @@ void launch_test(binary_tree_t *n1, binary_tree_t *n2)
 	binary_tree_t *ancestor;
 
 	ancestor = binary_trees_ancestor(n1, n2);
-	printf("Ancestor of [%d] & [%d]: ", n1->n, n2->n);
+	if (n1 && n2)
+	    printf("Ancestor of [%d] & [%d]: ", n1->n, n2->n);
 	if (!ancestor)
 	    printf("(nil)\n");
 	else
@@ -26,6 +27,7 @@ void launch_test(binary_tree_t *n1, binary_tree_t *n2)
 int main(void)
 {
 	binary_tree_t *root;
+	binary_tree_t *root2;
 
 	root = binary_tree_node(NULL, 98);
 	root->left = binary_tree_node(root, 12);
@@ -38,8 +40,13 @@ int main(void)
 	root->right->right->right = binary_tree_node(root->right->right, 65);
 	binary_tree_print(root);
 
+	root2 = binary_tree_node(NULL, 9569);
+	launch_test(root, root);
+	launch_test(root, root2);
 	launch_test(root->left, root->right);
 	launch_test(root->right->left, root->right->right->right);
 	launch_test(root->right->right, root->right->right->right);
+	launch_test(root->right->right, root->right->right);
+	launch_test(NULL, root);
 	return (0);
 }

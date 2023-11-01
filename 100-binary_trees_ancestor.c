@@ -87,6 +87,7 @@ qnode *enqueue(queue *q, binary_tree_t *bt_node)
 queue *fill_parents(binary_tree_t *node)
 {
 	queue *parents;
+	qnode *new;
 	binary_tree_t *current;
 
 	if (!node)
@@ -95,12 +96,17 @@ queue *fill_parents(binary_tree_t *node)
 	parents = init_queue();
 	current = node;
 
-	enqueue(parents, current);
+	new = enqueue(parents, current);
+	if (!new)
+		return (NULL);
+
 
 	while (current->parent)
 	{
 		current = current->parent;
-		enqueue(parents, current);
+		new = enqueue(parents, current);
+		if (!new)
+			return (NULL);
 	}
 
 	return (parents);
