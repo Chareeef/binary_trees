@@ -1,6 +1,25 @@
 #include "binary_trees.h"
 
 /**
+ * init_queue - initialize a queue
+ *
+ * Return: Pointer to the new queue
+ */
+queue *init_queue(void)
+{
+	queue *q;
+
+	q = malloc(sizeof(queue));
+	if (!q)
+		return (NULL);
+
+	q->front = NULL;
+	q->rear = NULL;
+
+	return (q);
+}
+
+/**
  * free_queue - free a queue
  * @q: Pointer to the queue
  */
@@ -22,6 +41,7 @@ void free_queue(queue *q)
 
 	free(q);
 }
+
 /**
  * enqueue - Add a node to the queue
  * @q: Pointer to the queue
@@ -87,50 +107,44 @@ binary_tree_t *dequeue(queue *q)
 }
 
 /**
- * fill_queue - Fill the queue to check if a tree is a bst
- * @q: Pointer to the queue
- * @tree: Pointer to the root node of the binary tree
- */
-void fill_queue(queue *q, binary_tree_t *tree)
-{
-	if (!q || !tree)
-		return;
-
-	fill_queue(q, tree->left);
-	enqueue(q, tree);
-	fill_queue(q, tree->right);
-}
-
-/**
- * binary_tree_is_bst - Checks if a binary tree is a valid Binary Search Tree
- * @tree: Pointer to the root node of the binary tree
+ * binary_tree_is_complete - Checks if a binary tree is complete
+ * @tree: Pointer to the root node of the tree
  *
- * Return: 1 if it's a bst, 0 otherwise
+ * Return: 1 if it is complete, 0 otherwise or if tree is NULL
  */
-int binary_tree_is_bst(const binary_tree_t *tree)
+int binary_tree_is_complete(const binary_tree_t *tree)
 {
-	queue *q;
+	queue *q, *nodes;
 	qnode *current;
 
 	if (!tree)
 		return (0);
 
-	q = malloc(sizeof(queue));
-	if (!q)
-		return (0);
+	q = init_queue();
+	nodes = init_queue();
 
-	q->front = NULL;
-	q->rear = NULL;
+	enqueue(q, (binary_tree_t *) tree);
 
-	fill_queue(q, (binary_tree_t *) tree);
+	while (q->front)
+	{
+		if (q->front->bt_node)
+		{
+			enqueue(q, q->front->bt_node->left);
+			enqueue(q, q->front->bt_node->right);
+		}
 
-	current = q->front;
+		enqueue(nodes, dequeue(q));
+	}
+
+	current = nodes->front;
+
 	while (current)
 	{
 		if (current->next &&
-			current->bt_node->n >= current->next->bt_node->n)
+				(!current->bt_node && current->next->bt_node))
 		{
 			free_queue(q);
+			free_queue(nodes);
 			return (0);
 		}
 
@@ -138,6 +152,6 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 	}
 
 	free_queue(q);
-
+	free_queue(nodes);
 	return (1);
 }
