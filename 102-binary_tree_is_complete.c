@@ -154,5 +154,4 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 	free_queue(q);
 	free_queue(nodes);
 	return (1);
-
 }
