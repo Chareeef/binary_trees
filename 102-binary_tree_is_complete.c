@@ -41,6 +41,7 @@ void free_queue(queue *q)
 
 	free(q);
 }
+
 /**
  * enqueue - Add a node to the queue
  * @q: Pointer to the queue
@@ -141,13 +142,17 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 	{
 		if (current->next &&
 				(!current->bt_node && current->next->bt_node))
+		{
+			free_queue(q);
+			free_queue(nodes);
 			return (0);
+		}
 
 		current = current->next;
 	}
 
 	free_queue(q);
 	free_queue(nodes);
-
 	return (1);
+
 }

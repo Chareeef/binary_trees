@@ -130,6 +130,7 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 		if (current->next &&
 			current->bt_node->n >= current->next->bt_node->n)
 		{
+			free_queue(q);
 			return (0);
 		}
 
