@@ -94,11 +94,17 @@ queue *fill_parents(binary_tree_t *node)
 		return (NULL);
 
 	parents = init_queue();
+	if (!parents)
+		return (NULL);
+
 	current = node;
 
 	new = enqueue(parents, current);
 	if (!new)
+	{
+		free_queue(parents);
 		return (NULL);
+	}
 
 
 	while (current->parent)
@@ -106,7 +112,10 @@ queue *fill_parents(binary_tree_t *node)
 		current = current->parent;
 		new = enqueue(parents, current);
 		if (!new)
+		{
+			free_queue(parents);
 			return (NULL);
+		}
 	}
 
 	return (parents);
