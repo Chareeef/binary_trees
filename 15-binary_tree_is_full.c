@@ -25,7 +25,7 @@ int is_full(const binary_tree_t *tree)
  */
 int binary_tree_is_full(const binary_tree_t *tree)
 {
-        if (!tree)
-                return (0);
-        return (is_full(tree));
+	if (!tree)
+		return (0);
+	return (is_full(tree));
 }
