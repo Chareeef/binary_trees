@@ -36,6 +36,8 @@ size_t binary_tree_height(const binary_tree_t *tree)
 /**
  * is_avl - checks if a tree is avl
  * @tree: pointer to the tree
+ * @low: lowest node value
+ * @high: hihgest node value
  *
  * Return: 1 if valid, 0 otherwise
  */
