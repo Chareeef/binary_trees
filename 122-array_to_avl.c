@@ -25,7 +25,7 @@ avl_t *array_to_avl(int *array, size_t size)
 			if (array[j] == array[i])
 				break;
 		}
-		
+
 		if (j == i)
 		{
 			if (!avl_insert(&root, array[i]))
