@@ -1,46 +1,55 @@
 #include "binary_trees.h"
 
-
 /**
- * insert_and_balance - Insert a node into avl tree then balance it if needed
- * @tree: Pointer to the root node of the AVL tree
- * @value: Integer to store in the node to be inserted
+ * bst_insert - inserts a node to a BST
+ * @tree: double pointer to the tree
+ * @value: value of the inserted node
  *
- * Return: A pointer to the created node, or NULL on failure.
+ * Return: pointer to the created node
  */
-avl_t *insert_and_balance(avl_t *tree, int value)
+bst_t *bst_insert(bst_t **tree, int value)
 {
-	avl_t *current, *new;
-	int balance;
+	bst_t *new, *curr_node;
 
-	current = tree;
-	while (current)
+	if (tree)
 	{
-		if (value == current->n)
-			return (NULL);
-		else if (value > current->n)
+		curr_node = *tree;
+		if (!curr_node)
 		{
-			if (current->right)
-				current = current->right;
-			else
+			new = binary_tree_node(curr_node, value);
+			*tree = new;
+			return (new);
+		}
+		while (curr_node)
+		{
+			if (value == curr_node->n)
+				return (NULL);
+			else if (value > curr_node->n)
 			{
-				new = create_node(value, current, 1);
-				return (new);
+				if (curr_node->right)
+					curr_node = curr_node->right;
+				else
+				{
+					new = binary_tree_node(curr_node, value);
+					curr_node->right = new;
+					return (new);
+				}
+			}
+			else if (value < curr_node->n)
+			{
+				if (curr_node->left)
+					curr_node = curr_node->left;
+				else
+				{
+					new = binary_tree_node(curr_node, value);
+					curr_node->left = new;
+					return (new);
+				}
 			}
 		}
-		else if (value < current->n)
-		{
-			if (current->left)
-				current = current->left;
-			else
-				return (create_node(value, current, -1));
-		}
 	}
-
-	return (new);
+	return (NULL);
 }
-
-*/
 
 /**
  * avl_insert - inserts a value in an AVL Tree
@@ -51,32 +60,15 @@ avl_t *insert_and_balance(avl_t *tree, int value)
  */
 avl_t *avl_insert(avl_t **tree, int value)
 {
-	avl_t *current;
 	avl_t *new;
+	int balance;
 
-	if (!tree)
+	new = bst_insert(tree, value);
+
+	if (!new)
 		return (NULL);
 
-	if (!*tree)
-	{
-		*tree = binary_tree_node(NULL, value);
-		return (*tree);
-	}
-
-	new = NULL;
-	current = *tree;
-	if (value == current->n)
-		return (NULL);
-	else if (value < current->n)
-	{
-		new = avl_insert(&current->left, value);
-		current->left = new;
-	}
-	else if (value > current->n)
-	{
-		new = avl_insert(&current->right, value);
-		current->right = new;
-	}
+	balance = binary_tree_balance(*tree);
 
 	return (new);
 }
