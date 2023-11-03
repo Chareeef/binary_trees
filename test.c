@@ -1,38 +1,49 @@
 #include "binary_trees.h"
 
 /**
- * print_array - Prints an array of integers
+ * basic_tree - Build a basic binary tree
  *
- * @array: The array to be printed
- * @size: Size of the array
+ * Return: A pointer to the created tree
  */
-void print_array(const int *array, size_t size)
+binary_tree_t *basic_tree(void)
 {
-    size_t i;
+    binary_tree_t *root;
 
-    for (i = 0; i < size; ++i)
-        printf("(%03d)", array[i]);
-    printf("\n");
+    root = binary_tree_node(NULL, 98);
+    root->left = binary_tree_node(root, 90);
+    root->right = binary_tree_node(root, 85);
+    root->left->right = binary_tree_node(root->left, 80);
+    root->left->left = binary_tree_node(root->left, 79);
+    return (root);
 }
 
 /**
  * main - Entry point
  *
- * Return: 0 on success, error code on failure
+ * Return: Always 0 (Success)
  */
 int main(void)
 {
-    avl_t *tree;
-    int array[] = {
-        1, 2, 20, 21, 22, 32, 34, 47, 62, 68,
-        79, 84, 87, 91, 95, 98
-    };
-    size_t n = sizeof(array) / sizeof(array[0]);
+    binary_tree_t *root;
+    int heap;
 
-    tree = sorted_array_to_avl(array, n);
-    if (!tree)
-        return (1);
-    print_array(array, n);
-    binary_tree_print(tree);
+    root = basic_tree();
+
+    binary_tree_print(root);
+    heap = binary_tree_is_heap(root);
+    printf("Is %d heap: %d\n", root->n, heap);
+    heap = binary_tree_is_heap(root->left);
+    printf("Is %d heap: %d\n", root->left->n, heap);
+
+    root->right->left = binary_tree_node(root->right, 97);
+    binary_tree_print(root);
+    heap = binary_tree_is_heap(root);
+    printf("Is %d heap: %d\n", root->n, heap);
+
+    root = basic_tree();
+    root->right->right = binary_tree_node(root->right, 79);
+    binary_tree_print(root);
+    heap = binary_tree_is_heap(root);
+    printf("Is %d heap: %d\n", root->n, heap);
     return (0);
 }
